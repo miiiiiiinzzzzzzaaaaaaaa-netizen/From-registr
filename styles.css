@@ -1,0 +1,103 @@
+/* تنظیمات کلی صفحه */
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: #f0f2f5;
+display: flex;
+justify-content: center; /* وسط‌چین کردن افقی */
+align-items: center;     /* وسط‌چین کردن عمودی */
+height: 100vh;
+margin: 0;
+}
+
+/* ظرف اصلی فرم */
+.container {
+background-color: #ffffff;
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 400px; /* پهنای فرم */
+}
+
+h2 {
+text-align: center;
+color: #333;
+margin-bottom: 25px;
+}
+
+/* استایل هر ردیف ورودی */
+.form-group {
+margin-bottom: 15px;
+position: relative;
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-weight: 600;
+color: #555;
+}
+
+input {
+width: 100%;
+padding: 12px;
+border: 2px solid #ddd;
+border-radius: 8px;
+box-sizing: border-box; /* برای اینکه پدینگ لبه‌ها رو بهم نریزه */
+transition: border-color 0.3s;
+}
+
+/* وقتی کاربر روی اینپوت کلیک می‌کنه */
+input:focus {
+outline: none;
+border-color: #4A90E2;
+}
+
+/* استایل پیام‌های خطا */
+.error {
+color: #e74c3c;
+font-size: 12px;
+margin-top: 5px;
+display: block;
+min-height: 15px;
+}
+
+/* استایل اینپوت وقتی غلط یا درسته */
+input.invalid { border-color: #e74c3c; }
+input.valid { border-color: #2ecc71; }
+
+/* استایل دکمه ثبت‌نام */
+button {
+width: 100%;
+padding: 12px;
+background-color: #4A90E2;
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;
+transition: background 0.3s;
+margin-top: 10px;
+}
+
+/* وقتی دکمه غیرفعاله */
+button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+
+/* وقتی موس روی دکمه میره (اگر فعال باشه) */
+button:enabled:hover {
+background-color: #357ABD;
+}
+
+/* پیام موفقیت */
+#successMessage {
+margin-top: 20px;
+padding: 10px;
+background-color: #d4edda;
+color: #155724;
+border-radius: 5px;
+text-align: center;
+}
