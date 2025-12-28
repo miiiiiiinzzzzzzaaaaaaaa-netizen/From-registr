@@ -61,3 +61,19 @@ form.addEventListener('submit', (e) => {
     });
     alert("ثبت‌نام با موفقیت انجام شد! اطلاعات در کنسول لاگ شد.");
 });
+// در ابتدای فایل script.js این متغیرها رو اصلاح کن
+const firstNameInput = document.getElementById('firstName');
+const lastNameInput = document.getElementById('lastName');
+
+// در تابع validate، چک کردن نام کامل رو اینطوری بنویس
+function validate() {
+    const fName = firstNameInput.value.trim();
+    const lName = lastNameInput.value.trim();
+    const fullName = fName + " " + lName; // ترکیب دو فیلد برای چک کردن پسورد
+    
+    const isNameValid = fName.length > 1 && lName.length > 1;
+    
+    // حالا از این fullName برای شرط "پسورد نباید شامل نام باشد" استفاده کن
+    const noNameInPass = !passwordValue.toLowerCase().includes(fName.toLowerCase()) && 
+                         !passwordValue.toLowerCase().includes(lName.toLowerCase());
+}
