@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpleFlow - ثبت نام</title>
+    <title>SimpleFlow Registration</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -13,7 +13,6 @@
                 <h1>Welcome to SimpleFlow</h1>
                 <p>Your Gateway to Effortless Management.</p>
             </div>
-            
             <div class="bottom-content">
                 <h2>Seamless Collaboration</h2>
                 <p>Effortlessly work together with your team in real-time.</p>
@@ -21,11 +20,9 @@
         </div>
 
         <div class="form-section">
-            <div class="brand-logo">
-    <div class="logo-icon"></div> <span>SimpleFlow</span>
-            </div>
-                <img src="https://via.placeholder.com/20/4e73df/4e73df" alt="logo"> 
-                <span>SimpleFlow</span>
+            <div class="brand-header">
+                <div class="logo-icon"></div>
+                <span class="brand-name">SimpleFlow</span>
             </div>
 
             <div class="tab-container">
@@ -35,45 +32,46 @@
             
             <form id="registrationForm">
                 <div class="input-group">
-                    <label>First Name</label>
-                    <input type="text" id="firstName" placeholder="Enter first name">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username">
+                    <span class="error-text" id="userError"></span>
                 </div>
 
-                <div class="input-group">
-                    <label>Last Name</label>
-                    <input type="text" id="lastName" placeholder="Enter last name">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstName" placeholder="First name">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastName" placeholder="Last name">
+                    </div>
                 </div>
 
                 <div class="input-group">
                     <label>Email</label>
                     <input type="email" id="email" placeholder="Enter email">
+                    <span class="error-text" id="emailError"></span>
                 </div>
 
                 <div class="input-group">
                     <div class="label-row">
                         <label>Password</label>
-                        <a href="#" class="forgot-link">Forgot Password?</a>
+                        <a href="#" class="forgot-pass">Forgot Password?</a>
                     </div>
                     <input type="password" id="password" placeholder="Enter password">
                     
-                    <div class="password-validation-list">
-                        <p id="strengthText">Password Strength: <span>Weak</span></p>
-                        <p id="ruleName">✓ Cannot contain your name or email address</p>
-                        <p id="ruleLength">✓ At least 8 characters</p>
-                        <p id="ruleSymbol">✓ Contains a number or symbol</p>
+                    <div class="pass-hints">
+                        <p id="hint-name">✓ Cannot contain your name or email</p>
+                        <p id="hint-len">✓ At least 8 characters</p>
+                        <p id="hint-symbol">✓ Contains a number or symbol</p>
                     </div>
                 </div>
 
                 <button type="submit" id="submitBtn" disabled>Create Account</button>
             </form>
-
-            <p class="terms-text">
-                By signing up to create an account, I accept Company's <br>
-                <a href="#">Terms of use & Privacy Policy</a>
-            </p>
         </div>
     </div>
     <script src="js/script.js"></script>
 </body>
 </html>
-
