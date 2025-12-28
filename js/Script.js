@@ -1,70 +1,57 @@
-const form = document.querySelector('form');
+// انتخاب المان‌ها بر اساس ID های موجود در HTML تو
 const username = document.getElementById('username');
-const fullName = document.getElementById('fullName'); // مطمئن شو ID در HTML همین است
+const full_name = document.getElementById('full-name');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const submitBtn = document.querySelector('button[type="submit"]');
+const submitBtn = document.querySelector('button');
 
-// تابع کمکی برای نمایش خطا یا موفقیت
-const setValidationClass = (element, isValid) => {
-    if (isValid) {
-        element.classList.add('success');
-        element.classList.remove('error');
+// تابع اصلی برای اضافه و کم کردن کلاس‌های رنگی
+function validateField(element, condition) {
+    if (condition) {
+        element.classList.add('valid');
+        element.classList.remove('invalid');
     } else {
-        element.classList.add('error');
-        element.classList.remove('success');
+        element.classList.add('invalid');
+        element.classList.remove('valid');
     }
-    checkFormValidity();
-};
-
-// 1. اعتبارسنجی نام کاربری (3-15 کاراکتر، حروف و عدد)
-username.addEventListener('input', () => {
-    const isValid = /^[a-zA-Z0-9]{3,15}$/.test(username.value);
-    setValidationClass(username, isValid);
-});
-
-// 2. اعتبارسنجی نام کامل (حروف و فاصله، حداقل دو بخش)
-fullName.addEventListener('input', () => {
-    const nameParts = fullName.value.trim().split(' ');
-    const isValid = /^[a-zA-Z\s]+$/.test(fullName.value) && nameParts.length >= 2 && nameParts[1] !== "";
-    setValidationClass(fullName, isValid);
-});
-
-// 3. اعتبارسنجی ایمیل (فرمت استاندارد)
-email.addEventListener('input', () => {
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-    setValidationClass(email, isValid);
-});
-
-// 4. اعتبارسنجی رمز عبور (بخش حساس پروژه)
-password.addEventListener('input', () => {
-    const val = password.value;
-    const hasMinLength = val.length >= 8;
-    const hasNumOrSymbol = /[\d!@#$%^&*]/.test(val);
-    const notContainsName = !val.includes(fullName.value) || fullName.value === "";
-    const notContainsEmail = !val.includes(email.value.split('@')[0]) || email.value === "";
-
-    const isValid = hasMinLength && hasNumOrSymbol && notContainsName && notContainsEmail;
-    setValidationClass(password, isValid);
-});
-
-// فعال/غیرفعال سازی دکمه ثبت نام
-function checkFormValidity() {
-    const inputs = [username, fullName, email, password];
-    const allValid = inputs.every(input => input.classList.contains('success'));
-    submitBtn.disabled = !allValid;
+    checkFormStatus();
 }
 
-// مدیریت ثبت فرم و کنسول لاگ
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    console.log({
-        username: username.value,
-        fullName: fullName.value,
-        email: email.value,
-        password: "****" // رعایت امنیت در کنسول
-    });
-    alert("ثبت‌نام با موفقیت انجام شد!");
-    form.reset();
-    inputs.forEach(input => input.classList.remove('success'));
+// ۱. اعتبارسنچی نام کاربری (طبق فایل پروژه: ۳ تا ۱۵ کاراکتر، فقط حروف و عدد)
+username.addEventListener('input', () => {
+    const isValid = /^[a-zA-Z0-9]{3,15}$/.test(username.value);
+    validateField(username, isValid);
 });
+
+// ۲. اعتبارسنجی نام کامل (فقط حروف و فاصله، حداقل دو بخش)
+full_name.addEventListener('input', () => {
+    const value = full_name.value.trim();
+    const isValid = /^[a-zA-Z\s]+$/.test(value) && value.includes(' ');
+    validateField(full_name, isValid);
+});
+
+// ۳. اعتبارسنجی ایمیل (فرمت استاندارد)
+email.addEventListener('input', () => {
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+    validateField(email, isValid);
+});
+
+// ۴. اعتبارسنجی رمز عبور (شرط‌های پیچیده پروژه)
+password.addEventListener('input', () => {
+    const val = password.value;
+    const namePart = full_name.value.toLowerCase();
+    const emailPart = email.value.toLowerCase().split('@')[0];
+
+    const isLongEnough = val.length >= 8;
+    const hasSpecial = /[\d!@#$%^&*]/.test(val);
+    const noName = namePart === "" || !val.toLowerCase().includes(namePart);
+    const noEmail = emailPart === "" || !val.toLowerCase().includes(emailPart);
+
+    validateField(password, isLongEnough && hasSpecial && noName && noEmail);
+});
+
+// چک کردن نهایی برای فعال شدن دکمه ثبت‌نام
+function checkFormStatus() {
+    const allValid = document.querySelectorAll('.valid').length === 4;
+    submitBtn.disabled = !allValid;
+}
