@@ -178,3 +178,5 @@ body {
     font-size: 18px;
     color: #333;
 }
+input.success { border: 2px solid green; }
+input.error { border: 2px solid red; }
