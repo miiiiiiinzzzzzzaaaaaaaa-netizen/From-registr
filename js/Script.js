@@ -1,79 +1,66 @@
-const form = document.getElementById('registrationForm');
-const inputs = document.querySelectorAll('input');
+// ۱. انتخاب تمام فیلدها
+const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
 const submitBtn = document.getElementById('submitBtn');
 
-const patterns = {
-    username: /^[a-zA-Z0-9]{3,15}$/, // فقط حروف و عدد، ۳ تا ۱۵ کاراکتر
-    fullName: /^[a-zA-Z\s]{2,}$/, // فقط حروف و فاصله
-    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // فرمت استاندارد ایمیل
-};
+// ۲. انتخاب راهنماهای پسورد برای تغییر رنگ
+const ruleName = document.getElementById('ruleName');
+const ruleLength = document.getElementById('ruleLength');
+const ruleSymbol = document.getElementById('ruleSymbol');
 
-function validate() {
-    const vals = {
-        user: document.getElementById('username').value,
-        name: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        pass: document.getElementById('password').value
-    };
+function validateForm() {
+    const fNameValue = firstName.value.trim();
+    const lNameValue = lastName.value.trim();
+    const emailValue = email.value.trim();
+    const passValue = password.value;
 
-    // ۱. چک کردن Username
-    const isUserValid = patterns.username.test(vals.user);
-    document.getElementById('username').className = isUserValid ? 'valid' : 'invalid';
+    // الف) چک کردن نام و نام خانوادگی
+    const isNameValid = fNameValue.length >= 2 && lNameValue.length >= 2;
 
-    // ۲. چک کردن Full Name
-    const isNameValid = isUserValid && vals.name.includes(' ') && patterns.fullName.test(vals.name);
-    document.getElementById('fullName').className = isNameValid ? 'valid' : 'invalid';
+    // ب) چک کردن فرمت ایمیل با Regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailValid = emailRegex.test(emailValue);
 
-    // ۳. چک کردن Email
-    const isEmailValid = patterns.email.test(vals.email);
-    document.getElementById('email').className = isEmailValid ? 'valid' : 'invalid';
+    // ج) چک کردن قوانین پسورد (بخش حساس پروژه)
+    const hasLength = passValue.length >= 8;
+    const hasSymbol = /[0-9!@#$%^&*]/.test(passValue);
+    
+    // شرط: پسورد نباید شامل نام یا فامیل یا بخش اول ایمیل باشد
+    const noNameInPass = !(
+        (fNameValue && passValue.toLowerCase().includes(fNameValue.toLowerCase())) ||
+        (lNameValue && passValue.toLowerCase().includes(lNameValue.toLowerCase())) ||
+        (emailValue && passValue.toLowerCase().includes(emailValue.split('@')[0].toLowerCase()))
+    );
 
-    // ۴. چک کردن Password (بخش حساس پروژه)
-    const hasLength = vals.pass.length >= 8;
-    const hasSpecial = /[0-9!@#$%^&*]/.test(vals.pass);
-    const noNameInPass = !vals.pass.toLowerCase().includes(vals.name.toLowerCase()) || vals.name === "";
-    const noEmailInPass = !vals.pass.toLowerCase().includes(vals.email.split('@')[0].toLowerCase()) || vals.email === "";
+    // تغییر رنگ لحظه‌ای راهنماهای پسورد (تیک‌های زیر پسورد)
+    ruleLength.style.color = hasLength ? "#28a745" : "#a0aec0";
+    ruleSymbol.style.color = hasSymbol ? "#28a745" : "#a0aec0";
+    ruleName.style.color = noNameInPass ? "#28a745" : "#a0aec0";
 
-    // تغییر رنگ راهنماهای پسورد
-    document.getElementById('lenHint').style.color = hasLength ? 'green' : 'red';
-    document.getElementById('numHint').style.color = hasSpecial ? 'green' : 'red';
-    document.getElementById('nameHint').style.color = (noNameInPass && noEmailInPass) ? 'green' : 'red';
-
-    const isPassValid = hasLength && hasSpecial && noNameInPass && noEmailInPass;
-    document.getElementById('password').className = isPassValid ? 'valid' : 'invalid';
-
-    // فعال/غیرفعال کردن دکمه ثبت نام
-    submitBtn.disabled = !(isUserValid && isNameValid && isEmailValid && isPassValid);
+    // د) فعال یا غیرفعال کردن دکمه نهایی
+    if (isNameValid && isEmailValid && hasLength && hasSymbol && noNameInPass) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+    } else {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.6";
+    }
 }
 
-// گوش دادن به تغییرات هر فیلد به صورت لحظه‌ای
-inputs.forEach(input => {
-    input.addEventListener('input', validate);
+// ۳. گوش دادن به تایپ کاربر در تمام فیلدها
+[firstName, lastName, email, password].forEach(input => {
+    input.addEventListener('input', validateForm);
 });
 
-form.addEventListener('submit', (e) => {
+// ۴. عملیات بعد از زدن دکمه ثبت‌نام
+document.getElementById('registrationForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log("Success!", {
-        username: inputs[0].value,
-        fullName: inputs[1].value,
-        email: inputs[2].value,
-        password: "********"
+    console.log("ثبت‌نام با موفقیت انجام شد: ", {
+        fullName: firstName.value + " " + lastName.value,
+        email: email.value,
+        password: "****" 
     });
-    alert("ثبت‌نام با موفقیت انجام شد! اطلاعات در کنسول لاگ شد.");
+    alert("تبریک! فرم با موفقیت ارسال شد و اطلاعات در کنسول لاگ شد.");
 });
-// در ابتدای فایل script.js این متغیرها رو اصلاح کن
-const firstNameInput = document.getElementById('firstName');
-const lastNameInput = document.getElementById('lastName');
-
-// در تابع validate، چک کردن نام کامل رو اینطوری بنویس
-function validate() {
-    const fName = firstNameInput.value.trim();
-    const lName = lastNameInput.value.trim();
-    const fullName = fName + " " + lName; // ترکیب دو فیلد برای چک کردن پسورد
-    
-    const isNameValid = fName.length > 1 && lName.length > 1;
-    
-    // حالا از این fullName برای شرط "پسورد نباید شامل نام باشد" استفاده کن
-    const noNameInPass = !passwordValue.toLowerCase().includes(fName.toLowerCase()) && 
-                         !passwordValue.toLowerCase().includes(lName.toLowerCase());
-}
