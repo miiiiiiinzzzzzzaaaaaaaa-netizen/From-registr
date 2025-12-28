@@ -1,49 +1,55 @@
-// اطمینان از لود شدن کامل DOM
-document.addEventListener('DOMContentLoaded', () => {
-    const firstName = document.getElementById('First-Name');
-    const lastName = document.getElementById('Last-Name');
-    const email = document.getElementById('Email');
-    const password = document.getElementById('Password');
-    const submitBtn = document.querySelector('.create-btn');
+// تست اتصال: به محض باز شدن صفحه باید پیام 'Connected' رو توی کنسول ببینی
+console.log("Connected to JavaScript File!");
 
-    function validate(element, condition) {
-        if (condition) {
-            element.style.border = "2px solid #28a745"; // سبز
-            element.classList.add('valid');
-            element.classList.remove('invalid');
-        } else {
-            element.style.border = "2px solid #dc3545"; // قرمز
-            element.classList.add('invalid');
-            element.classList.remove('valid');
-        }
-        
-        // چک کردن برای فعال شدن دکمه ثبت نام
-        const allValid = document.querySelectorAll('.valid').length === 4;
-        submitBtn.disabled = !allValid;
-        submitBtn.style.opacity = allValid ? "1" : "0.5";
+document.addEventListener('input', (e) => {
+    const input = e.target;
+    
+    // یوزرنیم (First-Name)
+    if (input.id === 'First-Name') {
+        const isValid = input.value.length >= 3 && input.value.length <= 15;
+        applyStyle(input, isValid);
     }
-
-    // اعتبارسنجی بر اساس قوانین فایل پروژه
-    firstName.addEventListener('input', () => {
-        const isOK = firstName.value.length >= 3 && firstName.value.length <= 15;
-        validate(firstName, isOK);
-    });
-
-    lastName.addEventListener('input', () => {
-        const isOK = lastName.value.trim().includes(' ') && /^[a-zA-Z\s]+$/.test(lastName.value);
-        validate(lastName, isOK);
-    });
-
-    email.addEventListener('input', () => {
-        const isOK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-        validate(email, isOK);
-    });
-
-    password.addEventListener('input', () => {
-        const val = password.value;
-        const isLong = val.length >= 8;
-        const hasSpecial = /[\d!@#$%^&*]/.test(val);
-        const noName = !val.includes(lastName.value) || lastName.value === "";
-        validate(password, isLong && hasSpecial && noName);
-    });
+    
+    // نام کامل (Last-Name)
+    if (input.id === 'Last-Name') {
+        const isValid = input.value.trim().includes(' ') && input.value.length > 5;
+        applyStyle(input, isValid);
+    }
+    
+    // ایمیل (Email)
+    if (input.id === 'Email') {
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+        applyStyle(input, isValid);
+    }
+    
+    // پسورد (Password)
+    if (input.id === 'Password') {
+        const isValid = input.value.length >= 8 && /[\d!@#$%^&*]/.test(input.value);
+        applyStyle(input, isValid);
+    }
 });
+
+function applyStyle(element, isValid) {
+    if (isValid) {
+        element.style.setProperty('border', '3px solid #28a745', 'important');
+        element.style.backgroundColor = '#f0fff4';
+        element.dataset.valid = "true";
+    } else {
+        element.style.setProperty('border', '3px solid #dc3545', 'important');
+        element.style.backgroundColor = '#fff5f5';
+        element.dataset.valid = "false";
+    }
+    
+    // چک کردن دکمه
+    const btn = document.querySelector('.create-btn');
+    const allInputs = document.querySelectorAll('input');
+    const validCount = Array.from(allInputs).filter(i => i.dataset.valid === "true").length;
+    
+    if (validCount >= 4) {
+        btn.disabled = false;
+        btn.style.opacity = "1";
+    } else {
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+    }
+}
