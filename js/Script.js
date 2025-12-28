@@ -1,57 +1,63 @@
-// انتخاب المان‌ها بر اساس ID های موجود در HTML تو
+// انتخاب دقیق المان‌ها بر اساس ID های پروژه تو
 const username = document.getElementById('username');
-const full_name = document.getElementById('full-name');
+const fullName = document.getElementById('full-name'); // توی کد تو full-name است
 const email = document.getElementById('email');
 const password = document.getElementById('password');
-const submitBtn = document.querySelector('button');
+const submitBtn = document.querySelector('.create-btn'); // دکمه با کلاس create-btn
 
-// تابع اصلی برای اضافه و کم کردن کلاس‌های رنگی
-function validateField(element, condition) {
-    if (condition) {
+// تابع اصلی برای رنگی کردن فیلدها
+function updateStyle(element, isValid) {
+    if (isValid) {
+        element.style.border = "2px solid #28a745"; // سبز
+        element.style.backgroundColor = "#f0fff4";
         element.classList.add('valid');
         element.classList.remove('invalid');
     } else {
+        element.style.border = "2px solid #dc3545"; // قرمز
+        element.style.backgroundColor = "#fff5f5";
         element.classList.add('invalid');
         element.classList.remove('valid');
     }
-    checkFormStatus();
+    checkForm();
 }
 
-// ۱. اعتبارسنچی نام کاربری (طبق فایل پروژه: ۳ تا ۱۵ کاراکتر، فقط حروف و عدد)
+// 1. یوزرنیم: 3 تا 15 کاراکتر، فقط حروف و عدد
 username.addEventListener('input', () => {
     const isValid = /^[a-zA-Z0-9]{3,15}$/.test(username.value);
-    validateField(username, isValid);
+    updateStyle(username, isValid);
 });
 
-// ۲. اعتبارسنجی نام کامل (فقط حروف و فاصله، حداقل دو بخش)
-full_name.addEventListener('input', () => {
-    const value = full_name.value.trim();
+// 2. نام کامل: فقط حروف و فاصله، حداقل دو بخش
+fullName.addEventListener('input', () => {
+    const value = fullName.value.trim();
     const isValid = /^[a-zA-Z\s]+$/.test(value) && value.includes(' ');
-    validateField(full_name, isValid);
+    updateStyle(fullName, isValid);
 });
 
-// ۳. اعتبارسنجی ایمیل (فرمت استاندارد)
+// 3. ایمیل: فرمت استاندارد
 email.addEventListener('input', () => {
     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-    validateField(email, isValid);
+    updateStyle(email, isValid);
 });
 
-// ۴. اعتبارسنجی رمز عبور (شرط‌های پیچیده پروژه)
+// 4. پسورد: شرط‌های پیچیده
 password.addEventListener('input', () => {
     const val = password.value;
-    const namePart = full_name.value.toLowerCase();
-    const emailPart = email.value.toLowerCase().split('@')[0];
+    const nameVal = fullName.value.toLowerCase();
+    const emailPrefix = email.value.split('@')[0].toLowerCase();
 
-    const isLongEnough = val.length >= 8;
+    const isLong = val.length >= 8;
     const hasSpecial = /[\d!@#$%^&*]/.test(val);
-    const noName = namePart === "" || !val.toLowerCase().includes(namePart);
-    const noEmail = emailPart === "" || !val.toLowerCase().includes(emailPart);
+    const noName = nameVal === "" || !val.toLowerCase().includes(nameVal);
+    const noEmail = emailPrefix === "" || !val.toLowerCase().includes(emailPrefix);
 
-    validateField(password, isLongEnough && hasSpecial && noName && noEmail);
+    updateStyle(password, isLong && hasSpecial && noName && noEmail);
 });
 
-// چک کردن نهایی برای فعال شدن دکمه ثبت‌نام
-function checkFormStatus() {
+// فعال/غیرفعال کردن دکمه
+function checkForm() {
     const allValid = document.querySelectorAll('.valid').length === 4;
     submitBtn.disabled = !allValid;
+    submitBtn.style.opacity = allValid ? "1" : "0.5";
+    submitBtn.style.cursor = allValid ? "pointer" : "not-allowed";
 }
