@@ -1,90 +1,55 @@
-const form = document.getElementById('registrationForm');
-const username = document.getElementById('username');
-const fullName = document.getElementById('fullName');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
+const form = document.getElementById('regForm');
+const passInput = document.getElementById('password');
+const emailInput = document.getElementById('email');
+const fnameInput = document.getElementById('firstName');
+const lnameInput = document.getElementById('lastName');
 const submitBtn = document.getElementById('submitBtn');
 
+const validations = {
+    length: document.getElementById('v-len'),
+    symbol: document.getElementById('v-symbol'),
+    nameEmail: document.getElementById('v-name')
+};
+
 function validateForm() {
-    const isUValid = checkUsername();
-    const isNValid = checkFullName();
-    const isEValid = checkEmail();
-    const isPValid = checkPassword();
+    const pass = passInput.value;
+    const email = emailInput.value;
+    const fname = fnameInput.value.toLowerCase();
+    const lname = lnameInput.value.toLowerCase();
 
-    submitBtn.disabled = !(isUValid && isNValid && isEValid && isPValid);
+    // ۱. چک کردن طول (حداقل ۸)
+    const isLenValid = pass.length >= 8;
+    validations.length.className = isLenValid ? 'valid' : '';
+
+    // ۲. چک کردن عدد یا نماد
+    const isSymbolValid = /[0-9!@#$%^&*]/.test(pass);
+    validations.symbol.className = isSymbolValid ? 'valid' : '';
+
+    // ۳. عدم وجود نام یا ایمیل در پسورد
+    const containsNameEmail = (fname && pass.toLowerCase().includes(fname)) || 
+                             (lname && pass.toLowerCase().includes(lname)) || 
+                             (email && pass.toLowerCase().includes(email.split('@')[0]));
+    
+    const isNameEmailValid = !containsNameEmail && pass !== "";
+    validations.nameEmail.className = isNameEmailValid ? 'valid' : '';
+
+    // فعال سازی دکمه
+    const isAllValid = isLenValid && isSymbolValid && isNameEmailValid && email.includes('@');
+    submitBtn.disabled = !isAllValid;
 }
 
-function checkUsername() {
-    const val = username.value.trim();
-    const regex = /^[a-zA-Z0-9]+$/;
-    let error = "";
-
-    if (val.length < 3 || val.length > 15) error =;
-    else if (!regex.test(val)) error =;
-
-    return showResult(username, 'usernameError', error);
-}
-
-function checkFullName() {
-    const val = fullName.value.trim();
-    const parts = val.split(' ').filter(p => p.length > 0);
-    const regex = /^[a-zA-Z\s]+$/;
-    let error = "";
-
-    if (!regex.test(val)) error =;
-    else if (parts.length < 2) error =;
-
-    return showResult(fullName, 'fullNameError', error);
-}
-
-function checkEmail() {
-    const val = email.value.trim();
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let error = regex.test(val) ? "" :;
-    return showResult(email, 'emailError', error);
-}
-
-function checkPassword() {
-    const val = password.value;
-    const nameVal = fullName.value.toLowerCase();
-    const emailPrefix = email.value.split('@')[0].toLowerCase();
-    let error = "";
-
-    if (val.length < 8) error =;
-    else if (!/[0-9!@#$%^&*]/.test(val)) error =;
-    else if (nameVal && val.toLowerCase().includes(nameVal)) error =;
-    else if (emailPrefix && val.toLowerCase().includes(emailPrefix)) error =;
-
-    return showResult(password, 'passwordError', error);
-}
-
-function showResult(input, errorId, errorMsg) {
-    const errorSpan = document.getElementById(errorId);
-    if (errorMsg) {
-        errorSpan.innerText = errorMsg;
-        input.classList.add('invalid');
-        input.classList.remove('valid');
-        return false;
-    } else {
-        errorSpan.innerText = "";
-        input.classList.remove('invalid');
-        input.classList.add('valid');
-        return true;
-    }
-}
-
-[username, fullName, email, password].forEach(el => {
-    el.addEventListener('input', validateForm);
+// گوش دادن به تغییرات ورودی‌ها
+[passInput, emailInput, fnameInput, lnameInput].forEach(input => {
+    input.addEventListener('input', validateForm);
 });
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log("اطلاعات ثبت شد:", {
-        user: username.value,
-        name: fullName.value,
-        email: email.value
+    console.log({
+        username: fnameInput.value + "123", // مثال برای یوزرنیم
+        fullName: `${fnameInput.value} ${lnameInput.value}`,
+        email: emailInput.value,
+        password: "*******"
     });
-    document.getElementById('successMessage').style.display = 'block';
-    form.reset();
-    submitBtn.disabled = true;
+    alert("Registration Successful! Check the Console.");
 });
