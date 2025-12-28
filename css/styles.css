@@ -30,14 +30,27 @@ body {
 
 /* بخش آبی سمت چپ */
 .sidebar {
-    flex: 1; /* ۵۰ درصد فضا */
-    background: #4e73df; /* رنگ آبی اصلی */
-    background: linear-gradient(180deg, #4e73df 0%, #224abe 100%);
+    flex: 1;
+    background-color: #4e73df;
+    /* این خط پایین، همون طرح موج‌دار عکس رو به پس‌زمینه اضافه می‌کنه */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cpath fill='%23224abe' d='M-4.5 311c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v446H-4.5V311z'/%3E%3Cpath fill='%233457d5' d='M-4.5 441c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v316H-4.5V441z'/%3E%3Cpath fill='%234e73df' d='M-4.5 571c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v186H-4.5V571z'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
     color: white;
-    padding: 40px;
+    padding: 60px 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+/* برای اینکه متن‌ها روی موج‌ها خوانا باشن */
+.sidebar h1, .sidebar p, .bottom-text {
+    position: relative;
+    z-index: 2;
 }
 
 .sidebar h1 { font-size: 24px; margin-bottom: 10px; }
