@@ -1,8 +1,8 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -10,165 +10,96 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 10px;
+    height: 100vh;
 }
-.container {
+
+.main-container {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 900px;
+    width: 900px;
     height: 600px;
-    background: #fff;
+    background: white;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* 
-.sidebar {
+/* استایل پنل آبی سمت چپ */
+.left-panel {
     flex: 1;
-    background-color: #4e73df;
-
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cpath fill='%23224abe' d='M-4.5 311c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v446H-4.5V311z'/%3E%3Cpath fill='%233457d5' d='M-4.5 441c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v316H-4.5V441z'/%3E%3Cpath fill='%234e73df' d='M-4.5 571c18.6-18.2 56.1-53.1 110.1-51.1 63.6 2.4 148.9 105 212 105.7 75.8.8 139.3-134.5 240.2-132.8 106.8 1.8 148.3 118.9 253.3 120.3 125.7 1.7 178.6-135 329.8-132.2 144.5 2.7 206 131.5 264.4 133.2v186H-4.5V571z'/%3E%3C/svg%3E");
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(135deg, #4461f2 0%, #1d2b83 100%);
+    /* اگر تصویر موج دارید، اینجا اضافه کنید:
+    background-image: url('waves.png'); 
+    background-size: cover; */
     color: white;
-    padding: 60px 40px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
 }
 
+.left-panel h1 { font-size: 28px; margin-bottom: 10px; }
+.left-panel h2 { font-size: 22px; margin-bottom: 10px; }
+.left-panel p { opacity: 0.8; font-size: 14px; }
 
-.sidebar h1, .sidebar p, .bottom-text {
-    position: relative;
-    z-index: 2;
-}
-
-.sidebar h1 { font-size: 24px; margin-bottom: 10px; }
-.sidebar p { font-size: 14px; opacity: 0.8; }
-
-
-.form-section {
-    flex: 1;
+/* استایل پنل فرم سمت راست */
+.right-panel {
+    flex: 1.2;
     padding: 40px;
     background: white;
+}
+
+.brand { display: flex; align-items: center; font-weight: bold; margin-bottom: 20px; }
+.brand img { width: 30px; margin-right: 10px; }
+
+.tab-switcher {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background: #f4f7fe;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 25px;
 }
 
-.input-group {
-    margin-bottom: 15px;
+.tab {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: #a3abb9;
 }
 
-.input-group label {
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+.tab.active {
+    background: #4461f2;
+    color: white;
 }
 
+/* استایل فیلدها */
+.input-group { margin-bottom: 15px; }
+.input-group label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #333; }
 .input-group input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #e1e5ee;
-    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #e0e5f2;
+    border-radius: 10px;
     outline: none;
 }
 
-#submitBtn {
+.forgot { font-size: 11px; color: #a3abb9; text-decoration: none; }
+
+.password-hints { margin: 15px 0; }
+.hint { font-size: 11px; color: #a3abb9; margin-bottom: 4px; }
+
+.btn-submit {
     width: 100%;
-    padding: 12px;
-    background-color: #4e73df;
+    padding: 14px;
+    background: #4461f2;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
 }
 
-#submitBtn:disabled {
-    background-color: #cbd5e0;
-    cursor: not-allowed;
-}
-.tab-container {
-    display: flex;
-    background-color: #f0f2f8;
-    border-radius: 8px;
-    padding: 5px;
-    margin-bottom: 25px;
-    width: fit-content;
-}
-
-.tab-btn {
-    border: none;
-    padding: 8px 25px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-    font-size: 14px;
-}
-
-.tab-btn.active {
-    background-color: #4e73df;
-    color: white;
-}
-
-.tab-btn:not(.active) {
-    background-color: transparent;
-    color: #a0aec0;
-}
-
-.label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.forgot-link {
-    font-size: 11px;
-    color: #a0aec0;
-    text-decoration: none;
-}
-.brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.logo-icon {
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 50%; 
-    position: relative;
-}
-
-.logo-icon::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-}
-
-.brand-logo span {
-    font-weight: bold;
-    font-size: 18px;
-    color: #333;
-}
-input.success { border: 2px solid green; }
-input.error { border: 2px solid red; }
+.footer-text { font-size: 10px; color: #a3abb9; text-align: center; margin-top: 20px; }
