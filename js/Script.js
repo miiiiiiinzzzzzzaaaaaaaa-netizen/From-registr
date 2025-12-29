@@ -1,55 +1,44 @@
-// تست اتصال: به محض باز شدن صفحه باید پیام 'Connected' رو توی کنسول ببینی
-console.log("Connected to JavaScript File!");
+// انتخاب المان‌های مورد نیاز
+const signupBtn = document.querySelector('.btn-signup');
+const signinBtn = document.querySelector('.btn-signin');
+const formTitle = document.querySelector('.form-header h2');
+const submitBtn = document.querySelector('.submit-btn');
 
-document.addEventListener('input', (e) => {
-    const input = e.target;
+// عملکرد دکمه Sign In
+signinBtn.addEventListener('click', () => {
+    // فعال کردن استایل دکمه
+    signinBtn.classList.add('active');
+    signupBtn.classList.remove('active');
     
-    // یوزرنیم (First-Name)
-    if (input.id === 'First-Name') {
-        const isValid = input.value.length >= 3 && input.value.length <= 15;
-        applyStyle(input, isValid);
-    }
+    // تغییر متن فرم (در حالت Sign In معمولاً فیلدهای کمتری نیاز است)
+    formTitle.innerText = "Welcome Back";
+    submitBtn.innerText = "Login";
     
-    // نام کامل (Last-Name)
-    if (input.id === 'Last-Name') {
-        const isValid = input.value.trim().includes(' ') && input.value.length > 5;
-        applyStyle(input, isValid);
-    }
-    
-    // ایمیل (Email)
-    if (input.id === 'Email') {
-        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
-        applyStyle(input, isValid);
-    }
-    
-    // پسورد (Password)
-    if (input.id === 'Password') {
-        const isValid = input.value.length >= 8 && /[\d!@#$%^&*]/.test(input.value);
-        applyStyle(input, isValid);
-    }
+    // در اینجا می‌توانید فیلدهای اضافه مثل نام کوچک و بزرگ را مخفی کنید
+    // document.querySelectorAll('.input-group')[1].style.display = 'none';
 });
 
-function applyStyle(element, isValid) {
-    if (isValid) {
-        element.style.setProperty('border', '3px solid #28a745', 'important');
-        element.style.backgroundColor = '#f0fff4';
-        element.dataset.valid = "true";
-    } else {
-        element.style.setProperty('border', '3px solid #dc3545', 'important');
-        element.style.backgroundColor = '#fff5f5';
-        element.dataset.valid = "false";
-    }
+// عملکرد دکمه Sign Up
+signupBtn.addEventListener('click', () => {
+    signupBtn.classList.add('active');
+    signinBtn.classList.remove('active');
     
-    // چک کردن دکمه
-    const btn = document.querySelector('.create-btn');
-    const allInputs = document.querySelectorAll('input');
-    const validCount = Array.from(allInputs).filter(i => i.dataset.valid === "true").length;
+    formTitle.innerText = "SimpleFlow";
+    submitBtn.innerText = "Register";
+});
+
+// مدیریت ارسال فرم
+const form = document.querySelector('.signup-form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // جلوگیری از رفرش شدن صفحه
     
-    if (validCount >= 4) {
-        btn.disabled = false;
-        btn.style.opacity = "1";
+    const username = document.querySelector('input[placeholder="Enter username"]').value;
+    const email = document.querySelector('input[placeholder="Enter email"]').value;
+
+    if(username === "" || email === "") {
+        alert("لطفاً تمامی فیلدها را پر کنید!");
     } else {
-        btn.disabled = true;
-        btn.style.opacity = "0.5";
+        console.log("اطلاعات ارسال شد:", { username, email });
+        alert("ثبت‌نام با موفقیت انجام شد.");
     }
-}
+});
