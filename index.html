@@ -1,72 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpleFlow - Sign Up</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="left-panel">
-            <div class="top-text">
-                <h1>Welcome to SimpleFlow</h1>
-                <p>Your Gateway to Effortless Management.</p>
-            </div>
-            <div class="bottom-text">
-                <h2>Seamless Collaboration</h2>
-                <p>Effortlessly work together with your team in real-time.</p>
-            </div>
+<div class="container">
+    <div class="left-panel">
+        <div class="welcome-content">
+            <h1>Welcome to SimpleFlow</h1>
+            <p>Your Gateway to Effortless Management.</p>
         </div>
+        <div class="wave"></div>
+    </div>
 
-        <div class="right-panel">
-            <div class="form-container">
-                <div class="logo">
-                    <img src="https://via.placeholder.com/30" alt="Logo"> <span>SimpleFlow</span>
+    <div class="right-panel">
+        <div class="form-container">
+            <div class="header-tabs">
+                <span class="logo">SimpleFlow</span>
+                <div class="auth-buttons">
+                    <button class="btn-signup active">Sign Up</button>
+                    <button class="btn-signin">Sign In</button>
                 </div>
-
-                <div class="toggle-buttons">
-                    <button class="btn-toggle active">Sign Up</button>
-                    <button class="btn-toggle">Sign In</button>
-                </div>
-
-                <form>
-                    <div class="input-group">
-                        <label>First Name</label>
-                        <input type="text" placeholder="First Name">
-                    </div>
-                    <div class="input-group">
-                        <label>Last Name</label>
-                        <input type="text" placeholder="Last Name">
-                    </div>
-                    <div class="input-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="Email Address">
-                    </div>
-                    <div class="input-group">
-                        <div class="label-row">
-                            <label>Password</label>
-                            <a href="#" class="forgot-pass">Forgot Password?</a>
-                        </div>
-                        <input type="password" placeholder="Enter Password">
-                    </div>
-
-                    <div class="password-checks">
-                        <p class="check-item">✓ Password Strength: <span>Weak</span></p>
-                        <p class="check-item">✓ Cannot contain your name or email address</p>
-                        <p class="check-item">✓ At least 8 characters</p>
-                        <p class="check-item">✓ Contains a number or symbol</p>
-                    </div>
-
-                    <button type="submit" class="btn-main">Create Account</button>
-                </form>
-
-                <p class="footer-note">
-                    By signing up to create an account, I accept Company's <br>
-                    <a href="#">Terms of use & Privacy Policy</a>
-                </p>
             </div>
+
+            <form>
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" placeholder="Enter username">
+                </div>
+                <div class="input-group">
+                    <label>First Name</label>
+                    <input type="text" placeholder="First name">
+                </div>
+                <div class="input-group">
+                    <label>Last Name</label>
+                    <input type="text" placeholder="Last name">
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Email address">
+                </div>
+                </form>
         </div>
     </div>
-</body>
-</html>
+</div>
