@@ -1,126 +1,101 @@
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #121212;
+    color: white;
 }
 
 .container {
-    background: white;
-    width: 950px;
-    height: 650px;
     display: flex;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    height: 100vh;
 }
 
-/* پنل آبی سمت چپ */
+/* بخش سمت چپ */
 .left-panel {
     flex: 1;
-    background: linear-gradient(135deg, #4461f2 0%, #1d2b83 100%);
-    background-image: url('https://www.transparenttextures.com/patterns/cubes.png'); /* یک پترن ملایم */
-    padding: 50px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.left-panel h1 { font-size: 2.2rem; margin-bottom: 10px; }
-.left-panel h2 { font-size: 1.8rem; margin-bottom: 10px; }
-.left-panel p { opacity: 0.8; font-weight: 300; }
-
-/* پنل سمت راست */
-.right-panel {
-    flex: 1.2;
-    padding: 40px 60px;
+    background: linear-gradient(to bottom, #00008B, #1a1a1a);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* بخش سمت راست */
+.right-panel {
+    flex: 1;
+    background-color: #1a1a1a;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.header-tabs {
+    margin-bottom: 30px;
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    font-size: 1.2rem;
+    display: block;
+    font-size: 1.5rem;
     margin-bottom: 20px;
 }
 
-.toggle-buttons {
-    background: #f4f7fe;
-    padding: 5px;
-    border-radius: 12px;
+.auth-buttons {
     display: flex;
-    margin-bottom: 25px;
+    gap: 20px;
+    align-items: center;
 }
 
-.btn-toggle {
-    flex: 1;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    background: transparent;
-    color: #8a94a6;
-    font-weight: 600;
-}
-
-.btn-toggle.active {
-    background: #4461f2;
+.btn-signup {
+    background-color: #0033cc;
     color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-/* فیلدها */
-.input-group { margin-bottom: 18px; }
-.input-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; color: #333; }
+.btn-signin {
+    background: none;
+    color: #666;
+    border: none;
+    cursor: pointer;
+}
+
+/* استایل فیلدها */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
 .input-group input {
     width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #e0e5f2;
-    border-radius: 12px;
+    padding: 12px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 10px;
+    color: white;
     outline: none;
 }
 
-.label-row { display: flex; justify-content: space-between; align-items: center; }
-.forgot-pass { font-size: 0.75rem; color: #a3abb9; text-decoration: none; }
-
-/* چک‌لیست پسورد */
-.password-checks { margin-bottom: 20px; }
-.check-item { font-size: 0.75rem; color: #a3abb9; margin-bottom: 4px; }
-.check-item span { font-weight: bold; }
-
-.btn-main {
-    width: 100%;
-    background: #4461f2;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
+.input-group input::placeholder {
+    color: #777;
 }
-
-.btn-main:hover { background: #3351d1; }
-
-.footer-note {
-    text-align: center;
-    font-size: 0.7rem;
-    color: #a3abb9;
-    margin-top: 20px;
-    line-height: 1.4;
-}
-
-.footer-note a { color: #4461f2; text-decoration: none; }
